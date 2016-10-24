@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     SeekBar seekBar;
-    ArrayList<Integer> arrayList;
+    ArrayList<Integer> arrayList = new ArrayList<>();
     ArrayAdapter<Integer> arrayAdapter;
     ListView listView;
     int seekBarMax = 19;
@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
+                //deInitList();
+                //initList();
                 int a = i+1;
                 //Log.d("Seekbar val",String.valueOf(a));
                 updateList(a);
@@ -52,11 +54,15 @@ public class MainActivity extends AppCompatActivity {
     }
     void initList()
     {
-        arrayList = new ArrayList<>();
         for(int i=0;i<10;i++)
         {
-            arrayList.add((int)i+1);
+            arrayList.add(i+1);
         }
+    }
+
+    void deInitList()
+    {
+        arrayList.clear();
     }
 
     void setAdapter()
@@ -72,13 +78,15 @@ public class MainActivity extends AppCompatActivity {
 
     void updateList(int mux)
     {
-        listView.invalidateViews();
+        deInitList();
+        initList();
         for(int i=0;i<10;i++)
         {
             int a = arrayList.get(i);
             a*=mux;
             arrayList.set(i,a);
         }
+        listView.invalidateViews();
     }
 
 }
